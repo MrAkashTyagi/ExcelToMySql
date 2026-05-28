@@ -1,8 +1,10 @@
 package com.batch.excel.Services;
 
-
+import com.batch.excel.Helper.GuestHelper;
 import com.batch.excel.Helper.Helper;
+import com.batch.excel.entities.Guest;
 import com.batch.excel.entities.Product;
+import com.batch.excel.repository.GuestRepo;
 import com.batch.excel.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,35 +15,33 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class GuestService {
+
 
     @Autowired
-    private ProductRepo productRepo;
+    private GuestRepo guestRepo;
 
     //saving data from excel to db
-    public void save(MultipartFile file){
+    public void save(MultipartFile file) {
 
         try {
-            List<Product> products= Helper.convertExcelToListOfProducts(file.getInputStream());
-            this.productRepo.saveAll(products);
+            List<Guest> guests = GuestHelper.convertExcelToListOfGuests(file.getInputStream());
+            this.guestRepo.saveAll(guests);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public List<Product> getAllProducts(){
-
-        return this.productRepo.findAll();
+    public List<Guest> getAllGuests() {
+        return this.guestRepo.findAll();
     }
-
 
     public ByteArrayInputStream getActualData() throws IOException {
-         List<Product> productList = this.productRepo.findAll();
-        System.out.println(productList);
-         ByteArrayInputStream stream = Helper.dataToExcel(productList);
-         return stream;
+        List<Guest> guestList = this.guestRepo.findAll();
+        System.out.println(guestList);
+        ByteArrayInputStream stream = GuestHelper.dataToExcel(guestList);
+        return stream;
     }
-
 
 }

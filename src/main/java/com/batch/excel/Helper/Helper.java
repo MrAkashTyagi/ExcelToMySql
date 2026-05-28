@@ -1,5 +1,6 @@
 package com.batch.excel.Helper;
 
+import com.batch.excel.entities.Guest;
 import com.batch.excel.entities.Product;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -69,7 +70,7 @@ public class Helper {
     }
 
     //check if the file is of excel type
-        public static boolean checkExcelFormat(MultipartFile file) {
+    public static boolean checkExcelFormat(MultipartFile file) {
         String contentType = file.getContentType();
         if (contentType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
             return true;
